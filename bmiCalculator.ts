@@ -19,6 +19,17 @@ const parseArguments = (args: string[]): ParsedResult => {
   }
 }
 
+const parseQueryParams = (height: String, weight: String): ParsedResult => {
+  if (!isNotNumber(height) && !isNotNumber(weight)) {
+    return {
+      height: Number(height),
+      weight: Number(weight)
+    };
+  } else {
+    throw new Error('Invalid inputs');
+  }
+}
+
 const calculateBmi = (height: number, weight: number): String => {
   const bmi: number = weight / ((height / 100) ^ 2);
   if (bmi < 16) {
@@ -36,7 +47,7 @@ const calculateBmi = (height: number, weight: number): String => {
   } else if (bmi >= 35 && bmi < 40) {
     return 'Obese (Class II)';
   } else if (bmi >= 40) {
-    return 'Obese (Class III';
+    return 'Obese (Class III)';
   } else {
     throw new Error('Invalid inputs')
   }
@@ -53,3 +64,5 @@ try {
 
   console.log(errorMessage)
 }
+
+export default { calculateBmi, parseQueryParams };
