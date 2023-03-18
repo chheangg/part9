@@ -17,9 +17,9 @@ const parseArguments = (args: string[]): ParsedResult => {
   } else {
     throw new Error('Invalid inputs');
   }
-}
+};
 
-const parseQueryParams = (height: String, weight: String): ParsedResult => {
+const parseQueryParams = (height: string, weight: string): ParsedResult => {
   if (!isNotNumber(height) && !isNotNumber(weight)) {
     return {
       height: Number(height),
@@ -28,9 +28,9 @@ const parseQueryParams = (height: String, weight: String): ParsedResult => {
   } else {
     throw new Error('Invalid inputs');
   }
-}
+};
 
-const calculateBmi = (height: number, weight: number): String => {
+const calculateBmi = (height: number, weight: number): string => {
   const bmi: number = weight / ((height / 100) ^ 2);
   if (bmi < 16) {
     return 'Underweight (Severe thinness)';
@@ -49,9 +49,9 @@ const calculateBmi = (height: number, weight: number): String => {
   } else if (bmi >= 40) {
     return 'Obese (Class III)';
   } else {
-    throw new Error('Invalid inputs')
+    throw new Error('Invalid inputs');
   }
-}
+};
 
 try {
   const { height, weight } = parseArguments(process.argv);
@@ -62,7 +62,7 @@ try {
     errorMessage += error.message;
   }
 
-  console.log(errorMessage)
+  console.log(errorMessage);
 }
 
 export default { calculateBmi, parseQueryParams };

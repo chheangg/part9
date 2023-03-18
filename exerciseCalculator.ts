@@ -20,30 +20,28 @@ interface ExerciseResult {
 const parseArguments = (args: string[]): ParsedResult => {
   if (args.length < 4) throw new Error('Not enough arguments');
 
-  let error: boolean = false;
+  let error = false;
 
   args.slice(2).forEach(input => isNotNumber(input) ? error = true : null);
 
   if (error) throw new Error('Invalid inputs');
 
-  const target: number = Number(args[2]);
+  const target = Number(args[2]);
   const numArgs: number[] = args.slice(3).map(input => Number(input)); 
-
-  console.log(target, numArgs)
 
   return {
     target,
     exercises: numArgs,
-  }
-}
+  };
+};
 
-const calculateExercises = (hours: number[], target: number): ExerciseResult => {
+export const calculateExercises = (hours: number[], target: number): ExerciseResult => {
   const periodLength: number = hours.length;
   const trainingDays: number = hours.filter(hour => hour > 0).length;
   const average: number = hours.reduce((prev, next) => prev + next) / periodLength;
   const success: boolean = average > target;
   let rating: Star = 1;
-  let ratingDescription: string = 'Bad';
+  let ratingDescription = 'Bad';
 
   if (average < target) {
     rating = 1;
@@ -64,8 +62,8 @@ const calculateExercises = (hours: number[], target: number): ExerciseResult => 
     success,
     rating,
     ratingDescription
-  }
-}
+  };
+};
 
 try {
   const { target, exercises } = parseArguments(process.argv);
@@ -76,5 +74,5 @@ try {
     errorMessage += error.message;
   }
 
-  console.log(errorMessage)
+  console.log(errorMessage);
 }
