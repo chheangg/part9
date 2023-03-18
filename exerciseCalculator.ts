@@ -42,8 +42,8 @@ const calculateExercises = (hours: number[], target: number): ExerciseResult => 
   const trainingDays: number = hours.filter(hour => hour > 0).length;
   const average: number = hours.reduce((prev, next) => prev + next) / periodLength;
   const success: boolean = average > target;
-  let rating: Star;
-  let ratingDescription: string;
+  let rating: Star = 1;
+  let ratingDescription: string = 'Bad';
 
   if (average < target) {
     rating = 1;
