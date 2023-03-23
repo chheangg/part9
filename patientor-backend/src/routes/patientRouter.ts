@@ -9,15 +9,7 @@ router.get('/', (_req, res) => {
 })
 
 router.post('/', (req, res) => {
-  const { name, dateOfBirth, ssn, gender, occupation } = req.body;
-  const newPatient = toNewPatient({
-    name,
-    dateOfBirth,
-    ssn,
-    gender,
-    occupation,
-  })
-
+  const newPatient = toNewPatient(req.body)
   const addedPatient = patientService.addPatient(newPatient);
 
   res.json(addedPatient);
