@@ -13,4 +13,12 @@ export type Patient = {
   occupation: string,
 }
 
+export type NewPatient = {
+  name: string,
+  dateOfBirth: string,
+  ssn: string,
+  gender: string,
+  occupation: string,
+}
+
 export type NonSensitivePatient = Omit<Patient, 'ssn'>;
