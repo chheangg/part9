@@ -2,7 +2,8 @@ import { useState } from "react";
 import { NewEntry } from "../types";
 
 interface formProp {
-  handleFormSubmit: (entry: NewEntry) => void
+  handleFormSubmit: (entry: NewEntry) => void,
+  error: string,
 }
 
 const Form = (props: formProp) => {
@@ -30,6 +31,8 @@ const Form = (props: formProp) => {
     <form onSubmit={handleForm}>
       <h2>Add new entry</h2>
 
+      <br />
+      {props.error && <p>{props.error}</p>}
       <label htmlFor='date'>Date</label>
       <input id='date' defaultValue={date} onChange={(event) => setDate(event.target.value)} />
       <br />
