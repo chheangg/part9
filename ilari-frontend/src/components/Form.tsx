@@ -8,23 +8,26 @@ interface formProp {
 
 const Form = (props: formProp) => {
   const [date, setDate] = useState<string>('');
-  const [visibility, setVisibility] = useState<string>('');
-  const [weather, setWeather] = useState<string>('');
   const [comment, setComment] = useState<string>('');
 
   const handleForm = (event: React.SyntheticEvent) => {
     event.preventDefault();
+    const target = event.target as typeof event.target & {
+      visibility: { value: string },
+      weather: { value: string },
+    };
+
     props.handleFormSubmit({
       date,
-      visibility,
-      weather,
+      visibility: target.visibility.value,
+      weather: target.weather.value,
       comment
     });
 
     setDate('');
-    setVisibility('');
-    setWeather('');
     setComment('');
+
+    console.log(date, comment);
   };
 
   return (
@@ -34,16 +37,36 @@ const Form = (props: formProp) => {
       <br />
       {props.error && <p>{props.error}</p>}
       <label htmlFor='date'>Date</label>
-      <input id='date' defaultValue={date} onChange={(event) => setDate(event.target.value)} />
+      <input id='date' type='date' onChange={(event) => setDate(event.target.value)} value={date} />
       <br />
-      <label htmlFor='visibility'>Visibility</label>
-      <input id='visibility' defaultValue={visibility} onChange={(event) => setVisibility(event.target.value)}  />
+      <fieldset>
+        <p>Visibility</p>
+        <label htmlFor="great">great</label>
+        <input id='great' value='great' type='radio' name='visibility'></input>
+        <label htmlFor="good">good</label>
+        <input id='good' value='good' type='radio' name='visibility'></input>
+        <label htmlFor="ok">ok</label>
+        <input id='ok' value='ok' type='radio' name='visibility'></input>
+        <label htmlFor="poor">poor</label>
+        <input id='poor' value='poor' type='radio' name='visibility'></input>
+      </fieldset>
       <br />
-      <label htmlFor='weather'>Weather</label>
-      <input id='weather' defaultValue={weather} onChange={(event) => setWeather(event.target.value)}  />
+      <fieldset>
+        <p>Weather</p>
+        <label htmlFor="sunny">sunny</label>
+        <input id='sunny' value='sunny' type='radio' name='weather'></input>
+        <label htmlFor="rainy">rainy</label>
+        <input id='rainy' value='rainy' type='radio' name='weather'></input>
+        <label htmlFor="cloudy">cloudy</label>
+        <input id='cloudy' value='cloudy' type='radio' name='weather'></input>
+        <label htmlFor="stormy">stormy</label>
+        <input id='stormy' value='stormy' type='radio' name='weather'></input>
+        <label htmlFor="windy">windy</label>
+        <input id='windy' value='windy' type='radio' name='weather'></input>
+      </fieldset>
       <br />
       <label htmlFor='comment'>Comment</label>
-      <input id='comment' defaultValue={comment} onChange={(event) => setComment(event.target.value)}  />
+      <input id='comment' value={comment} onChange={(event) => setComment(event.target.value)}  />
       <br />
 
       <button>Submit</button>
