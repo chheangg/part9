@@ -3,6 +3,11 @@ export interface SickLeave {
   endDate: string,
 }
 
+export interface ValidationError {
+  message: string;
+  errors: Record<string, string[]>
+}
+
 export interface Discharge {
   date: string,
   criteria: string
