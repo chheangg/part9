@@ -4,12 +4,12 @@ export enum Gender {
   Other = 'other'
 }
 
-interface SickLeave {
+export interface SickLeave {
   startDate: string,
   endDate: string,
 }
 
-interface Discharge {
+export interface Discharge {
   date: string,
   criteria: string
 }
@@ -42,7 +42,7 @@ interface OccupationalHealthcareEntry extends BaseEntry {
 
 interface HospitalEntry extends BaseEntry {
   type: "Hospital",
-  discharge?: Discharge
+  discharge: Discharge
 }
 
 export type Diagnose = {
