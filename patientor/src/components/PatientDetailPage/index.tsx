@@ -2,11 +2,13 @@ import { useParams } from "react-router-dom"
 import { useState, useEffect } from "react";
 
 import patientService from '../../services/patients';
-import { Patient } from "../../types";
+import { Entry, Patient, Discharge } from "../../types";
 
 import FemaleIcon from '@mui/icons-material/Female';
 import MaleIcon from '@mui/icons-material/Male';
 import TransgenderIcon from '@mui/icons-material/Transgender';
+
+import { OccupationalHealthcareEntry, HeathCheckEntry, HospitalEntry } from "./Entries";
 
 import { Box, Stack, Typography } from "@mui/material";
 
@@ -43,11 +45,24 @@ const PatientDetailPage = () => {
       case 'other':
         return TransgenderIcon;
       default:
-        return TransgenderIcon;
+        throw new Error('Error');
     }
   }
 
   const Icon = icon();
+
+  const EntryDetails: React.FC<{ entry: Entry }> = ({ entry }) => {
+    switch (entry.type) {
+      case "Hospital":
+        return <HospitalEntry discharge={entry.discharge as Discharge} />
+      case "OccupationalHealthcare":
+        return <OccupationalHealthcareEntry employerName={entry.employerName} sickLeave={entry.sickLeave} />
+      case "HealthCheck":
+        return <HeathCheckEntry healthCheckRating={entry.healthCheckRating} />
+      default:
+        throw new Error('Unknown type');
+    }
+  }
 
   return (
     <Box mt='2rem'>
@@ -60,7 +75,8 @@ const PatientDetailPage = () => {
       <Box>
         <ul>
           {patient.entries.map((entry) => (
-            <li>
+            <li >
+              <Box border='1px solid black'>
               <Typography variant="body1">
                 {entry.date} <i>{entry.description}</i>
                 <ul>
@@ -74,6 +90,8 @@ const PatientDetailPage = () => {
                   }
                 </ul>
               </Typography>
+              <EntryDetails entry={entry} />
+              </Box>
             </li>
           ))}
         </ul>
