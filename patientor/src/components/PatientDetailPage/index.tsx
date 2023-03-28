@@ -50,12 +50,34 @@ const PatientDetailPage = () => {
   const Icon = icon();
 
   return (
-    <Box>
+    <Box mt='2rem'>
       <Stack direction='row' alignItems='center'>
-        <Typography variant="h3">{patient.name}</Typography> {<Icon />}
+        <Typography variant="h4">{patient.name}</Typography> {<Icon />}
       </Stack>
       <Typography variant="body1">ssn: {patient.ssn}</Typography>
       <Typography variant="body1">occupation: {patient.occupation}</Typography>
+      <Typography mt='2rem' variant='h4'>entries</Typography>
+      <Box>
+        <ul>
+          {patient.entries.map((entry) => (
+            <li>
+              <Typography variant="body1">
+                {entry.date} <i>{entry.description}</i>
+                <ul>
+                  {
+                    entry.diagnosisCodes ?
+                    entry.diagnosisCodes.map((diagnosis) => (
+                      <li>{diagnosis}</li>
+                    ))
+                    :
+                    null
+                  }
+                </ul>
+              </Typography>
+            </li>
+          ))}
+        </ul>
+      </Box>
     </Box>
   )
 }
